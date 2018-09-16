@@ -1,0 +1,74 @@
+body{
+	 font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+p a { 
+    text-decoration: none; 
+	color:	#158078;
+}
+ 
+a:visited{
+	color:	#158078;
+}
+
+li {
+    list-style-type: none;
+}
+
+#login{
+	padding-left: 85%;
+}
+
+#username{
+	color:	#158078;
+	font-size: 40px;
+	text-align: center;
+}
+
+#changecolor{
+	margin-top: 20px;
+	text-align: center;
+}
+
+form{
+	margin-top: 20px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#legend{
+	width: 20%;
+	height: 500px;
+	float: left;
+}
+
+li{
+	margin-bottom:15px;
+}
+
+.daycount{
+	text-align: center;
+	font-size: 12px;	
+}
+
+table {
+	padding: 10px;
+}
+
+.floating{
+	float:left;
+}
+
+#login p{
+	height: 50px;
+	width: 170px;
+	text-align: center;
+	line-height: 50px;
+	background-image: url('/img/btn.jpg');
+}
+
+h1{
+	font-size: 50px;
+	color: #158078;
+	text-align: center;
+	margin:1px;
+}
