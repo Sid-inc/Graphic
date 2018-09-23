@@ -2,17 +2,23 @@
 
 class Day 
 {
-	public $DayMounth;
+	public $DayIndex;
 	public $DayNumber;
 	public $DayName;
-	public $hollyday;
+	public $DayMounth;
+	public $DayColor;
+	public $DayHolly;
+	public $DayStartInterval;
 	
-	public function __construct($mounth, $number, $name, $hollyday)
+	public function __construct($index, $number, $name, $mounth, $color, $hollyday, $StartInterval)
 	{
-		$this->DayMounth = $mounth;
+		$this->DayIndex = $index;
 		$this->DayNumber = $number;
 		$this->DayName = $name;
-		$this->hollyday = $hollyday;
+		$this->DayMounth = $mounth;
+		$this->DayColor = $color;
+		$this->DayHolly = $hollyday;
+		$this->DayStartInterval = $StartInterval;
 	}
 }
 

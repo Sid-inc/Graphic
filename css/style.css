@@ -52,6 +52,7 @@ li{
 
 table {
 	padding: 10px;
+/*border-spacing: 0;*/
 }
 
 .floating{
@@ -71,4 +72,8 @@ h1{
 	color: #158078;
 	text-align: center;
 	margin:1px;
+}
+
+td{
+	text-align: center;
 }
