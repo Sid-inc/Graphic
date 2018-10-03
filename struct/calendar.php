@@ -38,7 +38,9 @@ for ($m = 1;$m <= 12;$m++){ //Перебираем месяцы
 		}
 		echo '</tr>';
 	}
-	echo '<tr><td colspan="7" class="daycount">Доступно дней:</td></tr>';
+	if(isset($_SESSION['user'])){
+		echo '<tr><td colspan="7" class="daycount">Доступно дней: '.round($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->day_avalible($day_counter-1), 2).'</td></tr>';
+	}
 	echo '</table>';
 }
 
