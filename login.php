@@ -3,7 +3,7 @@
 	session_start();
 	if(isset($_SESSION['user'])){
 		header("Location:index.php");
-}
+	}
 	require_once '/lib/dbconnect.php';
 			
 	if (isset($_POST['submit'])){
@@ -12,7 +12,7 @@
 		$input_password = htmlspecialchars($_POST['password']);
 		$chek_user =  $link->query('SELECT login, password FROM graphic_users WHERE login = "'.$input_login.'"');
 		$chek_user = $chek_user->fetch_assoc();
-		if ($chek_user['login'] = ''){
+		if ($chek_user['login'] == ''){
 			$error_login = 'Неверный логин';
 		}else if($chek_user['password']<>$input_password){
 			$error_login = 'Неверный пароль';
@@ -33,7 +33,7 @@
 <body>
 	<div id="full">
 		<div id="autorization">
-			<form name="first_holiday" action="login.php" method="post">
+			<form name="login" action="login.php" method="post">
 				<p id="topinterval">Логин</p>
 				<input class="txtfield" type="text" name="login"></input><br />
 				<p>Пароль<p>

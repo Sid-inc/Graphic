@@ -27,5 +27,26 @@ class Sotrudnik
 		return $this->start_days + $dayindex * $this->addpday;
 	}
 	
+	public function set_vacation($first_day, $year)
+	{
+		$i = 14;
+		$d = 0;
+		while ($i >= 1){
+			if($year[$first_day+$d]->DayColor <> '') {
+				return 'Пересечение отпусков!';
+				break;
+			}else{
+				$year[$first_day+$d]->DayColor = $this->color;
+			}
+			$d++;
+			if(($year[$first_day+$d]->DayName <> 'сб') && ($year[$first_day+$d]->DayName <> 'вс') && ($year[$first_day+$d]->DayHolly == 1)){
+				continue;
+			}else{
+				$i--;
+			}
+		}
+		if($year[$first_day+$d-1]->DayName == 'сб') $year[$first_day+$d]->DayColor = $this->color;
+		return 'ok';	
+	}	
 }
 ?>

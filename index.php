@@ -40,6 +40,14 @@ function get_user_id($arr, $name){
 	return $gettingid;
 }
 
+function get_day_id($mounthday, $mounth, $year)
+{
+	for ($i=1;$i<=365; $i++){
+		if(($year[$i]->DayNumber == $mounthday) && ($year[$i]->DayMounth == $mounth)) return $i;
+	}
+	return 'error';
+}
+
 for ($i = 1; $i <= 365; $i++){ //Собираем данные дней из бд в массив объектов
 	$getting_array = get_record($link,$i);
 	$year[] = new Day($getting_array['index_of_year'], $getting_array['day_num'], $getting_array['week_day'], $getting_array['month'], $getting_array['bak_color'], $getting_array['holyday'], $getting_array['start_interval']);
@@ -50,6 +58,17 @@ for ($i = 1; $i <= 7; $i++){ //Собираем данные пользоват�
 	$sotrudniki[] = new Sotrudnik($getting_array['id'], $getting_array['login'], $getting_array['name'], $getting_array['start_days'], $getting_array['first'], $getting_array['second'], $getting_array['color']);
 }
 
+if (isset($_POST['submit'])){ //Задать отпуск
+	if(get_day_id($_POST['day'], $_POST['mounth'], $year) == 'error') {
+	$date_error = 'Некорректная дата';
+	}else{
+		$set = $sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->set_vacation(get_day_id($_POST['day'], $_POST['mounth'], $year), $year);
+		if($set <> 'ok'){
+			$date_error = $set;
+		}
+	}
+}
+	
 require_once '/struct/header.php';
 if(!isset($_SESSION['user'])){ 
 	echo '<div id="interval"></div>';
