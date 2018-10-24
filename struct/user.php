@@ -9,10 +9,10 @@ if($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->color == ''){
 	echo '</svg>';
 	echo '<a href="color_choise.php"> Необходимо выбрать цвет</a>';
 	echo '</div>';
-}else if($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->first == ''){
-			require_once 'struct/first_otpusk.php';
-		}else if($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->second == ''){
-			require_once 'struct/second_otpusk.php';
+}else if($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->first_start == '0'){
+		require_once 'struct/first_otpusk.php';
+}else if($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->second_start == '0'){
+		require_once 'struct/second_otpusk.php';
 }
 
 ?>
