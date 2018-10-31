@@ -53,7 +53,7 @@
 			echo "<script>window.location.href='admin.php'</script>";
 		}
 		if($_GET['v'] == '2'){
-			for($x = $sotrudniki[get_user_id($sotrudniki, $_GET['user'])]->first_start; $x <= $sotrudniki[get_user_id($sotrudniki, $_GET['user'])]->first_stop; $x++){
+			for($x = $sotrudniki[get_user_id($sotrudniki, $_GET['user'])]->second_start; $x <= $sotrudniki[get_user_id($sotrudniki, $_GET['user'])]->second_stop; $x++){
 				$link->query('UPDATE days SET bak_color = "" WHERE index_of_year = "'.$x.'"');
 			}
 			$link->query('UPDATE graphic_users SET second_start = "", second_stop = "" WHERE id = "'.get_user_id($sotrudniki, $_GET['user']).'"');

@@ -39,7 +39,15 @@ if (isset($_POST['submit'])){ //Задать отпуск
 			for($x = $nd; $x <= $nd+$set; $x++){
 				set_voc_color($x, $sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->color, $link);
 			}
-			$link->query('UPDATE graphic_users SET first_start = "'.$nd.'", first_stop = "'.($nd+$set).'" WHERE login = "'.$sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->login.'"');
+			if ($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->first_start == '0'){
+				$link->query('UPDATE graphic_users SET first_start = "'.$nd.'", first_stop = "'.($nd+$set).'" WHERE login = "'.$sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->login.'"');
+			}else{
+				$link->query('UPDATE graphic_users SET second_start = "'.$nd.'", second_stop = "'.($nd+$set).'" WHERE login = "'.$sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->login.'"');
+				if ($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->login <> 'Sid'){
+					unset($_SESSION['user']);
+					echo "<script>window.location.href='index.php'</script>";
+				}
+			}
 			echo "<script>window.location.href='index.php'</script>";
 		}
 	}

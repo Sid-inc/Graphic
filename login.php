@@ -10,15 +10,19 @@
 		$link = db_connect(); //Подключение к БД				
 		$input_login = htmlspecialchars($_POST['login']);
 		$input_password = htmlspecialchars($_POST['password']);
-		$chek_user =  $link->query('SELECT login, password FROM graphic_users WHERE login = "'.$input_login.'"');
+		$chek_user =  $link->query('SELECT login, password, second_start FROM graphic_users WHERE login = "'.$input_login.'"');
 		$chek_user = $chek_user->fetch_assoc();
 		if ($chek_user['login'] == ''){
 			$error_login = 'Неверный логин';
 		}else if($chek_user['password']<>$input_password){
 			$error_login = 'Неверный пароль';
 		}else{
-			$_SESSION['user'] = $input_login;
-			echo "<script>window.location.href='index.php'</script>";
+			if(($chek_user['second_start'] == '0') || $input_login == 'Sid'){
+				$_SESSION['user'] = $input_login;
+				echo "<script>window.location.href='index.php'</script>";
+			}else{
+				$error_login = 'Сорян, бро, отпуска уже заданы, логинится незачем';
+			}
 		}
 	}
 	

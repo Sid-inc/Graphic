@@ -1,6 +1,6 @@
 	<form name="second_holiday" action="index.php" method="post">
 		Начало второго отпуска. День:
-		<select>
+		<select name="day">
 			<option>1</option>
 			<option>2</option>
 			<option>3</option>
@@ -34,7 +34,7 @@
 			<option>31</option>
 		</select>
 			Месяц:
-		<select>
+		<select name="mounth">
 			<option>2</option>
 			<option>3</option>
 			<option>4</option>
@@ -46,5 +46,6 @@
 			<option>10</option>
 			<option>11</option>
 		</select>
-		<input type="submit" value="Выбрать"></input>
+		<input name="submit" type="submit" value="Выбрать"></input>
+		<br /><span><?=$date_error?></span>
 	</form>
