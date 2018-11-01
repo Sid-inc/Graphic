@@ -7,10 +7,10 @@
 		header("Location:index.php");
 	}
 
-	require_once '/lib/class/day.php';
-	require_once '/lib/class/sotrudnik.php';
-	require_once '/lib/dbconnect.php';
-	require_once '/lib/functions.php';
+	require_once 'lib/class/day.php';
+	require_once 'lib/class/sotrudnik.php';
+	require_once 'lib/dbconnect.php';
+	require_once 'lib/functions.php';
 
 	$link = db_connect(); //Подключение к БД
 

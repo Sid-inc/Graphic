@@ -2,10 +2,10 @@
 
 session_start();
 
-require_once '/lib/class/day.php';
-require_once '/lib/class/sotrudnik.php';
-require_once '/lib/dbconnect.php';
-require_once '/lib/functions.php';
+require_once 'lib/class/day.php';
+require_once 'lib/class/sotrudnik.php';
+require_once 'lib/dbconnect.php';
+require_once 'lib/functions.php';
 
 if ($_GET['logout'] == 1) unset($_SESSION['user']);
 
@@ -53,14 +53,14 @@ if (isset($_POST['submit'])){ //Задать отпуск
 	}
 }
 	
-require_once '/struct/header.php';
+require_once 'struct/header.php';
 if(!isset($_SESSION['user'])){ 
 	echo '<div id="interval"></div>';
 }else{
-	require_once '/struct/user.php';
+	require_once 'struct/user.php';
 }
 
-require_once '/struct/legend.php';
-require_once '/struct/calendar.php';
+require_once 'struct/legend.php';
+require_once 'struct/calendar.php';
 
 ?>

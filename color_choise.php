@@ -4,7 +4,7 @@
 	if(!isset($_SESSION['user'])){
 		header("Location:index.php");
 	}
-	require_once '/lib/dbconnect.php';
+	require_once 'lib/dbconnect.php';
 		if (isset($_POST['submit'])){
 			if(isset($_POST['color'])){
 				$link = db_connect(); //Подключение к БД
