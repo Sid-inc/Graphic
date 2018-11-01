@@ -1,7 +1,7 @@
 	<div id="legend">
 		<ul>	
 	
-	
+
 	<?php
 			for	($n = 1; $n < count($sotrudniki); $n++){
 				echo '<li>';
