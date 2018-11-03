@@ -28,7 +28,7 @@
 <html>
 <head>
 	<meta http-equiv=Content-Type content="text/html;charset=UTF-8">
-	  <link href="/css/style.css?=123" type="text/css" rel="stylesheet" />
+	  <link href="css/style.css?=123" type="text/css" rel="stylesheet" />
 	<title>График отпусков</title>
 </head>
 <body>
@@ -52,7 +52,9 @@
 				?>
 				<input id="button" name="submit" type="submit" value="Выбрать"></input>
 			</form>
-			<span><?=$error_change_color?></span>
+			<div class="<?php if (strlen($error_change_color)>2) {echo 'error';};?>">
+				<?=$error_change_color?>
+			</div>
 		</div>
 	</div>
 </body>

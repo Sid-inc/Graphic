@@ -47,5 +47,8 @@
 			<option>11</option>
 		</select>
 		<input name="submit" type="submit" value="Выбрать"></input>
-		<br /><span><?=$date_error?></span>
+		<br />
+		<div class="<?php if (strlen($date_error)>2) {echo 'error';};?>">
+			<?=$date_error?>
+		</div>
 	</form>

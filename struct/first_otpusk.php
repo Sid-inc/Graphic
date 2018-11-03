@@ -1,3 +1,4 @@
+	<div class="form-wrapper">
 	<form name="first_holiday" action="index.php" method="post">
 		Начало первого отпуска. День:
 		<select name="day">
@@ -48,6 +49,9 @@
 		</select>
 		<input name="submit" type="submit" value="Выбрать"></input>
 		<br />
-		<span><?=$date_error?></span>
+		<div class="<?php if (strlen($date_error)>2) {echo 'error';};?>">
+			<?=$date_error?>
+		</div>
 	</form>
+	</div>
 	

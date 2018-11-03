@@ -1,5 +1,9 @@
 <?php
-echo '<div id="username">'.$sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->name.'</div>';
+echo '<div class="user-wrapper">';
+echo '<div class="user">';
+echo '<span id="username">'.$sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->name.'</span>';
+echo '</div>';
+echo '</div>';
 
 if($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->color == ''){
 	echo '<div id="changecolor">';

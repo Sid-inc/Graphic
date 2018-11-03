@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 session_start();
 
 require_once 'lib/class/day.php';
@@ -45,10 +45,15 @@ if (isset($_POST['submit'])){ //Задать отпуск
 				$link->query('UPDATE graphic_users SET second_start = "'.$nd.'", second_stop = "'.($nd+$set).'" WHERE login = "'.$sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->login.'"');
 				if ($sotrudniki[get_user_id($sotrudniki, $_SESSION['user'])]->login <> 'Sid'){
 					unset($_SESSION['user']);
+					//TODO: Сообщение об успешности
+					//echo '<div class="success">Отпуск успешно добавлен. Сейчас вы будете перенаправлены на главную страницу</div>';
 					echo "<script>window.location.href='index.php'</script>";
+					
 				}
 			}
+			//echo '<div class="success">Отпуск успешно добавлен. Сейчас вы будете перенаправлены на главную страницу</div>';
 			echo "<script>window.location.href='index.php'</script>";
+			
 		}
 	}
 }

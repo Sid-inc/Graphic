@@ -50,9 +50,9 @@ class Sotrudnik
 				if($year[$first_day+$d]->DayColor <> '') {
 					return 'Пересечение отпусков!';
 					break;
-				}//else{
-				//	$year[$first_day+$d]->DayColor = $this->color;
-				//}
+				}else{
+					$year[$first_day+$d]->DayColor = $this->color;
+				}
 				$d++;
 				if(($year[$first_day+$d]->DayName <> 'сб') && ($year[$first_day+$d]->DayName <> 'вс') && ($year[$first_day+$d]->DayHolly == 1)){
 					continue;
