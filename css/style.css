@@ -273,32 +273,23 @@ td{
 }
 
 #button.button-main-page {
-	margin-top: 0;
-	position: fixed;
+    z-index: 999;
+    margin-top: 0;
+    position: fixed;
     right: 0;
-    top: -5px;
-	padding: 9px 1px;
-	border-radius: 0;
-	width: 130px;
-	background-color: dodgerblue;
-	border: 2px solid dodgerblue;
-	color: white;
+    top: 0;
+    padding: 8px 1px;
+    border-radius: 0;
+    width: 130px;
+    background: url(../img/flag-default.svg);
+    color: white;
 }
 
 #button.button-main-page:focus,
-#button.button-main-page:active {
-	border: 2px solid gainsboro;
-    background: gainsboro;
-}
-
-
-#button.button-main-page:after {
-	content: '';
-    position: absolute;
-    left: -9px;
-    bottom: -3px;
-    border: 75px solid transparent;
-    border-bottom: 25px solid white;
+#button.button-main-page:active,
+#button.button-main-page:hover  {
+    background: url(../img/flag-hover.svg);
+    border: none;
 }
 
 /* span{
