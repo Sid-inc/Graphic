@@ -45,7 +45,7 @@ header {
     border-radius: 8px 8px 8px 8px;
     background-color: lightgreen;
     border: 2px solid lightseagreen;
-    width: 266px;
+    width: 20%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -313,11 +313,7 @@ td{
 }
 
 .months {
-	margin-right: 187px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-	justify-content: left;
+    width: 100%;
 }
 
 .months th {
