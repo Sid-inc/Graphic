@@ -37,4 +37,39 @@ function set_voc_color($x, $color, $link)
 	$link->query('UPDATE days SET bak_color = "'.$color.'" WHERE index_of_year = "'.$x.'"');				
 }
 
+function get_mounth_id($name){
+	switch ($name) {
+    case 'Февраль':
+        return 2;
+        break;
+    case 'Март':
+        return 3;
+        break;
+	case 'Апрель':
+        return 4;
+        break;
+	case 'Май':
+        return 5;
+        break;
+	case 'Июнь':
+        return 6;
+        break;
+	case 'Июль':
+        return 7;
+        break;
+	case 'Август':
+        return 8;
+        break;
+	case 'Сентябрь':
+        return 9;
+        break;
+	case 'Октябрь':
+        return 10;
+        break;
+	case 'Ноябрь':
+        return 11;
+        break;
+	}
+}
+
 ?>
