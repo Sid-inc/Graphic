@@ -313,11 +313,7 @@ td{
 }
 
 .months {
-	margin-right: 187px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-	justify-content: left;
+    width: 100%;
 }
 
 .months th {
