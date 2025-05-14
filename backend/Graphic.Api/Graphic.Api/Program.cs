@@ -1,14 +1,16 @@
-using Graphic.Api.Data;
-using Microsoft.EntityFrameworkCore;
+using Graphic.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
-});
+builder.Services.AddPostgreSqlDbContext(builder.Configuration);
+builder.Services.AddPostgreSqlIdentityContext();
+builder.Services.AddConfigureIdentityOptions();
+builder.Services.AddJwtTokenGenerator();
+builder.Services.AddAuthenticationConfig(builder.Configuration);
+builder.Services.AddCors();
 
 var app = builder.Build();
 app.MapControllers();
@@ -18,5 +20,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+app.UseCors(o =>
+{
+    o.AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin()
+        .WithExposedHeaders("*");
+}); // TODO: Исправить при слиянии в мастер.
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+await app.Services.InitializeRolesAsync();
 
 app.Run();
