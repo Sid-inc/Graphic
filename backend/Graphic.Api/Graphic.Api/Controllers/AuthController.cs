@@ -1,76 +1,27 @@
 using System.Net;
-using System.Text.Json;
-using Graphic.Api.Common;
-using Graphic.Api.Data;
 using Graphic.Api.Models;
 using Graphic.Api.Models.Dto;
 using Graphic.Api.Services;
-using Microsoft.AspNetCore.Authorization;
+using Graphic.Core.Abstractions;
+using Graphic.DataAccess.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Graphic.Api.Controllers;
 
 public class AuthController : GraphicRootController
 {
-    readonly UserManager<User> _userManager;
+    readonly UserManager<UserEntity> _userManager;
     readonly RoleManager<IdentityRole> _roleManager;
-    readonly ILogger _logger;
     readonly JwtTokenGenerator _jwtTokenGenerator;
+    readonly IUsersService _usersService;
 
-    public AuthController(AppDbContext appDbContext, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ILogger logger, JwtTokenGenerator jwtTokenGenerator) 
-        : base(appDbContext)
+    public AuthController(UserManager<UserEntity> userManager, RoleManager<IdentityRole> roleManager, JwtTokenGenerator jwtTokenGenerator, IUsersService usersService)
     {
         _userManager = userManager;
         _roleManager = roleManager;
-        _logger = logger;
         _jwtTokenGenerator = jwtTokenGenerator;
-    }
-
-    [HttpPost]
-    public async Task<ActionResult<ServerResponse>> Register([FromBody] RegisterUserDto? registerRequest)
-    {
-        if (registerRequest is null || registerRequest.Email is null || registerRequest.Password is null)
-            return BadRequest(new ServerResponse
-            {
-                IsSuccess = false,
-                StatusCode = HttpStatusCode.BadRequest,
-                ErrorMessages = { "Ошибка регистрации" }
-            });
-        
-        var userFromDb = await DbContext.GraphicUsers.FirstOrDefaultAsync(u => u.Email != null && u.Email.ToLower() == registerRequest.Email.ToLower());
-        
-        if (userFromDb is not null)
-            return BadRequest(new ServerResponse
-            {
-                IsSuccess = false,
-                StatusCode = HttpStatusCode.BadRequest,
-                ErrorMessages = { "Ошибка регистрации", "Пользователь с таким Email уже существует" }
-            });
-
-        var newUser = new User
-        {
-            Email = registerRequest.Email,
-            UserName = registerRequest.UserName ?? registerRequest.Email,
-        };
-        
-        var result = await _userManager.CreateAsync(newUser, registerRequest.Password);
-
-        if (!result.Succeeded)
-        {
-            _logger.LogError(JsonSerializer.Serialize(result.Errors), registerRequest);
-            return BadRequest(new ServerResponse
-            {
-                IsSuccess = false,
-                StatusCode = HttpStatusCode.BadRequest,
-                ErrorMessages = { "Ошибка регистрации", "Не удалось создать пользователя" }
-            });
-        }
-        
-        await _userManager.AddToRoleAsync(newUser, SharedData.Roles.Owner);
-
-        return Ok(new ServerResponse { StatusCode = HttpStatusCode.Created });
+        _usersService = usersService;
     }
 
     [HttpPost]
@@ -84,14 +35,14 @@ public class AuthController : GraphicRootController
                 ErrorMessages = { "Пустой логин или пароль" }
             });
         
-        var userFromDb = await DbContext.GraphicUsers.FirstOrDefaultAsync(u => u.Email != null && u.Email.ToLower() == loginRequest.Email.ToLower());
-        
-        if (userFromDb is null || !await _userManager.CheckPasswordAsync(userFromDb, loginRequest.Password))
+        var userFromDb = await _usersService.GetUserByEmail(loginRequest.Email);
+
+        if (userFromDb is null || !await _usersService.CheckPassword(loginRequest.Email, loginRequest.Password))
             return BadRequest(new ServerResponse
             {
                 IsSuccess = false,
                 StatusCode = HttpStatusCode.BadRequest,
-                ErrorMessages = { "Неверный логин или пароль" }
+                ErrorMessages = { "Пользователь не найден" }
             });
         
         var token = _jwtTokenGenerator.GenerateJwtToken(userFromDb);
@@ -106,16 +57,5 @@ public class AuthController : GraphicRootController
         
         return Ok(new ServerResponse { StatusCode = HttpStatusCode.OK, Result = new LoginResponseDto { Token = token }});
     }
-
-    [HttpPost]
-    [Authorize(Roles = SharedData.Roles.Admin)]
-    public async Task<ActionResult<ServerResponse>> GetUsers()
-    {
-        return BadRequest(new ServerResponse
-        {
-            IsSuccess = false,
-            StatusCode = HttpStatusCode.BadRequest,
-            ErrorMessages = { "Ошибка аутентификации" }
-        });
-    }
+    
 }

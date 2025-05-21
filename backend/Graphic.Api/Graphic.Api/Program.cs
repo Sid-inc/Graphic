@@ -1,4 +1,7 @@
 using Graphic.Api.Extensions;
+using Graphic.Application.Services;
+using Graphic.Core.Abstractions;
+using Graphic.DataAccess.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,9 @@ builder.Services.AddConfigureIdentityOptions();
 builder.Services.AddJwtTokenGenerator();
 builder.Services.AddAuthenticationConfig(builder.Configuration);
 builder.Services.AddCors();
+
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 var app = builder.Build();
 app.MapControllers();

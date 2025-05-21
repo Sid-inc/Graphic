@@ -1,4 +1,4 @@
-namespace Graphic.Api.Common;
+namespace Graphic.Core.Common;
 
 public static class SharedData
 {

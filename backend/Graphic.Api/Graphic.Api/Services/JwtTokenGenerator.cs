@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Graphic.Api.Models;
+using Graphic.Core.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Graphic.Api.Services;

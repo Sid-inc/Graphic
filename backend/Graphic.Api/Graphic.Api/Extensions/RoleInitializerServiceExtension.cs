@@ -1,4 +1,4 @@
-using Graphic.Api.Common;
+using Graphic.Core.Common;
 using Microsoft.AspNetCore.Identity;
 
 namespace Graphic.Api.Extensions;
